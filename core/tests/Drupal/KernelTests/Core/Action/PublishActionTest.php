@@ -69,7 +69,7 @@ class PublishActionTest extends KernelTestBase {
     $this->assertTrue($entity->isPublished());
     $this->assertSame(['module' => ['entity_test']], $action->getDependencies());
 
-    $this->assertWatchdogLogEntry('%type: published %title.');
+    $this->assertWatchdogLogEntry('@type: published %title.');
   }
 
   /**
@@ -92,7 +92,7 @@ class PublishActionTest extends KernelTestBase {
     $this->assertFalse($entity->isPublished());
     $this->assertSame(['module' => ['entity_test']], $action->getDependencies());
 
-    $this->assertWatchdogLogEntry('%type: unpublished %title.');
+    $this->assertWatchdogLogEntry('@type: unpublished %title.');
   }
 
   /**
@@ -108,7 +108,7 @@ class PublishActionTest extends KernelTestBase {
     $this->assertIsArray($vars, 'unserialize($logs[0]->variables) failed');
     $this->assertSame('entity_test', $logs[0]->type);
     $this->assertSame($expected_message, $logs[0]->message);
-    $this->assertSame('entity_test_mulrevpub', $vars['%type']);
+    $this->assertSame('entity_test_mulrevpub', $vars['@type']);
     $this->assertSame('test', $vars['%title']);
   }
 

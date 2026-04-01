@@ -58,14 +58,14 @@ abstract class EntityActionBase extends ActionBase implements DependentPluginInt
    * @param \Drupal\Core\Entity\EntityInterface $entity
    *   The entity whose state changed.
    * @param string $message
-   *   The full log message template (e.g. '%type: published %title.').
+   *   The full log message template (e.g. '@type: published %title.').
    */
   protected function logStateChange(EntityInterface $entity, string $message): void {
     $channel = $this->entityTypeManager
       ->getDefinition($entity->getEntityTypeId())
       ->getProvider();
     $this->loggerFactory->get($channel)->info($message, [
-      '%type'  => $entity->bundle(),
+      '@type'  => $entity->bundle(),
       '%title' => $entity->label() ?? '',
     ]);
   }

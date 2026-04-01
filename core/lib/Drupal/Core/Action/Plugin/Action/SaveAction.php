@@ -44,6 +44,10 @@ class SaveAction extends EntityActionBase {
    *   The logger channel factory.
    */
   public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, TimeInterface $time, ?LoggerChannelFactoryInterface $logger_factory = NULL) {
+    if (!$logger_factory instanceof LoggerChannelFactoryInterface) {
+      @trigger_error('Calling ' . __CLASS__ . '::__construct() without the $logger_factory argument is deprecated in drupal:11.2.0 and will be required in drupal:12.0.0. See https://www.drupal.org/node/2555609', E_USER_DEPRECATED);
+      $logger_factory = \Drupal::service('logger.factory');
+    }
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $logger_factory);
     $this->time = $time;
   }
