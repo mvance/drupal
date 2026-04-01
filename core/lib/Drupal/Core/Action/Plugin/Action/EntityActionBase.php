@@ -61,9 +61,7 @@ abstract class EntityActionBase extends ActionBase implements DependentPluginInt
    *   The full log message template (e.g. '@type: published %title.').
    */
   protected function logStateChange(EntityInterface $entity, string $message): void {
-    $channel = $this->entityTypeManager
-      ->getDefinition($entity->getEntityTypeId())
-      ->getProvider();
+    $channel = $entity->getEntityType()->getProvider();
     $this->loggerFactory->get($channel)->info($message, [
       '@type'  => $entity->bundle(),
       '%title' => $entity->label() ?? '',
